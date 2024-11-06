@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "domain": [
+        "mail.zholah.com"
+      ]
+    },
+    {
+      "domain_suffix": [
+        "aibc.love",
+        "aibc.store",
+        "aidm.icu",
+        "aicc.icu",
+        "todesk.com",
+        "appstorrent.ru",
+        "lingxing.com"
+      ]
+    }
+  ]
+}
