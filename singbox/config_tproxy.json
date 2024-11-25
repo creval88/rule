@@ -1,136 +1,239 @@
-{
-  "log": {
-    "disabled": false,
-    "level": "info",
-    "timestamp": true
-  },
-  
-  "experimental": {
-    "clash_api": {
-      "external_controller": "0.0.0.0:9095",
-      "external_ui": "/etc/sing-box/ui",
-      "secret": "123456",
-      "external_ui_download_url": "https://ghp.ci/https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
-      "external_ui_download_detour": "🎯 全球直连",
-      "default_mode": "rule"
-    },
-  "cache_file": {
-    "enabled": true,
-    "path": "/etc/sing-box/cache.db",
-    "store_fakeip": false
-    }
-  },
-  
-  "dns": {
-    "servers": [
-      {"tag": "proxyDns", "address": "https://dns.google/dns-query", "address_resolver": "defaultDns", "address_strategy": "ipv4_only", "detour": "🚀 节点选择"},
-      {"tag": "localDns", "address": "202.96.128.86", "address_resolver": "defaultDns", "address_strategy": "ipv4_only", "detour": "🎯 全球直连"},
-      {"tag": "defaultDns", "address": "202.96.128.86", "address_strategy": "ipv4_only", "detour": "🎯 全球直连"}
-    ],
-    "rules": [
-      { "outbound": "any", "server": "defaultDns", "disable_cache": true },
-      { "clash_mode": "direct", "server": "localDns" },
-      { "clash_mode": "global", "server": "proxyDns" },
-      { "rule_set": "geosite-cn", "server": "localDns" },
-      { "rule_set": "geosite-geolocation-!cn", "server": "proxyDns" }
-    ],
-    "final": "localDns",
-    "strategy": "ipv4_only"
-  },
+#!/bin/sh
 
-  "inbounds": [
-    {
-      "type": "tproxy",
-      "tag": "tproxy-in",
-      "listen": "0.0.0.0",
-      "listen_port": 7895,
-      "sniff": true,
-      "sniff_override_destination": false
-    },
-    {
-      "type": "mixed",
-      "listen": "127.0.0.1",
-      "listen_port": 2080,
-      "sniff": true,
-      "users": []
-    }
-  ],
+#################################################
+# 描述: OpenWrt sing-box TProxy模式 配置脚本
+# 版本: 1.0.0
+# 作者: Youtube: 七尺宇
+# 用途: 配置和启动 sing-box TProxy模式 代理服务
+#################################################
 
-   "outbounds": [
-    { "tag": "🚀 节点选择", "type": "selector", "outbounds": ["🔯 香港自动", "🔯 新加坡自动", "🇭🇰 香港节点", "🇸🇬 新加坡节点", "🇯🇵 日本节点", "🇺🇲 美国节点", "🐸 手动切换", "♻️ 自动选择", "🎯 全球直连"] },
-    { "tag": "📹 YouTube", "type": "selector", "outbounds": ["🚀 节点选择", "♻️ 自动选择", "🔯 香港自动", "🔯 新加坡自动", "🇭🇰 香港节点", "🇸🇬 新加坡节点", "🇯🇵 日本节点", "🇺🇲 美国节点", "🐸 手动切换"] },
-    { "tag": "🤖 OpenAI", "type": "selector", "outbounds": ["🇺🇲 美国节点", "🚀 节点选择", "♻️ 自动选择", "🔯 香港自动", "🔯 新加坡自动", "🇭🇰 香港节点", "🇸🇬 新加坡节点", "🇯🇵 日本节点", "🐸 手动切换"] },
-    { "tag": "🍀 Google", "type": "selector", "outbounds": ["🚀 节点选择", "♻️ 自动选择", "🔯 香港自动", "🔯 新加坡自动", "🇭🇰 香港节点", "🇸🇬 新加坡节点", "🇯🇵 日本节点", "🇺🇲 美国节点", "🐸 手动切换"] },
-    { "tag": "👨‍💻 Github", "type": "selector", "outbounds": ["🚀 节点选择", "♻️ 自动选择", "🔯 香港自动", "🔯 新加坡自动", "🇭🇰 香港节点", "🇸🇬 新加坡节点", "🇯🇵 日本节点", "🇺🇲 美国节点", "🐸 手动切换"] },
-    { "tag": "🪟 Microsoft", "type": "selector", "outbounds": ["🚀 节点选择", "♻️ 自动选择", "🔯 香港自动", "🔯 新加坡自动", "🇭🇰 香港节点", "🇸🇬 新加坡节点", "🇯🇵 日本节点", "🇺🇲 美国节点", "🎯 全球直连"] },
-    { "tag": "🐬 OneDrive", "type": "selector", "outbounds": ["🚀 节点选择", "♻️ 自动选择", "🔯 香港自动", "🔯 新加坡自动", "🇭🇰 香港节点", "🇸🇬 新加坡节点", "🇯🇵 日本节点", "🇺🇲 美国节点", "🐸 手动切换"] },
-    { "tag": "🎵 TikTok", "type": "selector", "outbounds": ["🇺🇲 美国节点", "🚀 节点选择", "♻️ 自动选择", "🔯 香港自动", "🔯 新加坡自动", "🇭🇰 香港节点", "🇸🇬 新加坡节点", "🇯🇵 日本节点", "🐸 手动切换"] },
-    { "tag": "🎥 Netflix", "type": "selector", "outbounds": ["🚀 节点选择", "♻️ 自动选择", "🔯 香港自动", "🔯 新加坡自动", "🇭🇰 香港节点", "🇸🇬 新加坡节点", "🇯🇵 日本节点", "🇺🇲 美国节点", "🐸 手动切换"] },
-    { "tag": "📲 Telegram", "type": "selector", "outbounds": ["🔯 新加坡自动", "🚀 节点选择", "♻️ 自动选择", "🔯 香港自动", "🇭🇰 香港节点", "🇸🇬 新加坡节点", "🇯🇵 日本节点", "🇺🇲 美国节点", "🐸 手动切换"] },
-    { "tag": "🍏 Apple", "type": "selector", "outbounds": ["🎯 全球直连", "🇭🇰 香港节点", "🇯🇵 日本节点", "🇺🇲 美国节点"] },
-    { "tag": "🐠 漏网之鱼", "type": "selector", "outbounds": ["🚀 节点选择","🎯 全球直连"] },
-    { "tag": "🐸 手动切换", "type": "selector", "outbounds": ["{all}"]},
-    { "tag": "🇭🇰 香港节点", "type": "selector", "outbounds": ["{all}"], "filter": [{ "action": "include", "keywords": ["🇭🇰|HK|hk|香港|港|HongKong"] }] },
-    { "tag": "🇸🇬 新加坡节点", "type": "selector", "outbounds": ["{all}"], "filter": [{ "action": "include", "keywords": ["🇸🇬|SG|sg|新加坡|新"] }] },
-    { "tag": "🇯🇵 日本节点", "type": "selector", "outbounds": ["{all}"], "filter": [{ "action": "include", "keywords": ["🇯🇵|JP|jp|日本|日|Japan"] }] },
-    { "tag": "🇺🇲 美国节点", "type": "selector", "outbounds": ["{all}"], "filter": [{ "action": "include", "keywords": ["🇺🇸|US|us|美国|美|United States"] }, { "action": "exclude", "keywords": ["香港|港|HK|hk|HongKong"] }] },
-    { "tag": "🔯 香港自动", "type": "urltest", "outbounds": ["{all}"], "filter": [{ "action": "include", "keywords": ["🇭🇰|HK|hk|香港|港|HongKong"] }], "url": "http://www.gstatic.com/generate_204", "interval": "10m", "tolerance": 50 },
-    { "tag": "🔯 新加坡自动", "type": "urltest", "outbounds": ["{all}"], "filter": [{ "action": "include", "keywords": ["🇸🇬|SG|sg|新加坡|新"] }], "url": "http://www.gstatic.com/generate_204", "interval": "10m", "tolerance": 50 },
-    { "tag": "♻️ 自动选择", "type": "urltest", "outbounds": ["{all}"], "filter": [{ "action": "exclude", "keywords": ["网站|地址|剩余|过期|时间|有效"] }], "url": "http://www.gstatic.com/generate_204", "interval": "10m", "tolerance": 50 },
-    { "tag": "GLOBAL", "type": "selector", "outbounds": ["{all}"]},
-    { "tag": "🎯 全球直连", "type": "direct" },
-    { "tag": "dns-out", "type": "dns" }
-  ],
-  
-  "route": {
-        "auto_detect_interface": true,
-        "final": "🐠 漏网之鱼",
-    "rules": [
-      { "type": "logical", "mode": "or", "rules": [{ "port": 53 }, { "protocol": "dns" }], "outbound": "dns-out" },
-      { "clash_mode": "direct", "outbound": "🎯 全球直连" },
-      { "clash_mode": "global", "outbound": "GLOBAL" },
-      { "domain": ["clash.razord.top", "yacd.metacubex.one", "yacd.haishan.me", "d.metacubex.one"], "outbound": "🎯 全球直连" },
-      { "rule_set": ["geosite-private", "geoip-private"], "outbound": "🎯 全球直连" },
-      { "rule_set": "direct1", "outbound": "🎯 全球直连" },
-      { "rule_set": "geosite-chat", "outbound": "🤖 OpenAI" },
-      { "rule_set": "geosite-github", "outbound": "👨‍💻 Github" },
-      { "rule_set": "geosite-youtube", "outbound": "📹 YouTube" },
-      { "rule_set": "geosite-onedrive", "outbound": "🐬 OneDrive" }, 
-      { "rule_set": "geosite-microsoft", "outbound": "🪟 Microsoft" }, 
-      { "rule_set": ["geoip-google", "geosite-google"], "outbound": "🍀 Google" },
-      { "rule_set": "geosite-tiktok", "outbound": "🎵 TikTok" },
-      { "rule_set": ["geoip-apple", "geosite-apple"], "outbound": "🍏 Apple" },
-      { "rule_set": ["geoip-netflix", "geosite-netflix"], "outbound": "🎥 Netflix" },
-      { "rule_set": ["geoip-telegram", "geosite-telegram"], "outbound": "📲 Telegram" },
-      { "rule_set": "geosite-geolocation-!cn", "outbound": "🚀 节点选择" },
-      { "rule_set": ["geoip-cn", "geosite-cn"], "outbound": "🎯 全球直连" }
-    ],
-    
-    "rule_set": [
-      { "tag": "direct1", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/creval88/rule/main/singbox/Direct.srs", "download_detour": "🎯 全球直连" },
-      { "tag": "geosite-chat", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ai-chat-!cn.srs", "download_detour": "🎯 全球直连" },
-      { "tag": "geosite-youtube", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/youtube.srs", "download_detour": "🎯 全球直连" },
-      { "tag": "geosite-google", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/google.srs", "download_detour": "🎯 全球直连" },
-      { "tag": "geosite-github", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/github.srs", "download_detour": "🎯 全球直连" },
-      { "tag": "geosite-telegram", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/telegram.srs", "download_detour": "🎯 全球直连" },
-      { "tag": "geosite-tiktok", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/tiktok.srs", "download_detour": "🎯 全球直连" },
-      { "tag": "geosite-netflix", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/netflix.srs", "download_detour": "🎯 全球直连" },
-      { "tag": "geosite-apple", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/apple.srs", "download_detour": "🎯 全球直连" },
-      { "tag": "geosite-microsoft", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/microsoft.srs", "download_detour": "🎯 全球直连" },
-      { "tag": "geosite-onedrive", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/onedrive.srs", "download_detour": "🎯 全球直连" },
-      { "tag": "geosite-geolocation-!cn", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/geolocation-!cn.srs", "download_detour": "🎯 全球直连" },
-      { "tag": "geosite-cn", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/cn.srs", "download_detour": "🎯 全球直连" },
-      { "tag": "geosite-private", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/private.srs", "download_detour": "🎯 全球直连" },
-            
-      { "tag": "geoip-google", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/google.srs", "download_detour": "🎯 全球直连" },
-      { "tag": "geoip-telegram", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/telegram.srs", "download_detour": "🎯 全球直连" },     
-      { "tag": "geoip-netflix", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/netflix.srs", "download_detour": "🎯 全球直连" },     
-      { "tag": "geoip-apple", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo-lite/geoip/apple.srs", "download_detour": "🎯 全球直连" },
-      { "tag": "geoip-cn", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs", "download_detour": "🎯 全球直连" },
-      { "tag": "geoip-private", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/private.srs", "download_detour": "🎯 全球直连" }
-   
-    ],
-    "geosite": {"path": "./geosite.db", "download_url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.db"},
-    "geoip": {"path": "./geoip.db", "download_url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.db"}
-  }
+# 配置参数
+BACKEND_URL="https://sing.aibc.love/"  # 转换后端地址
+SUBSCRIPTION_URL="https://sub.aibc.love/YM6NoEofTBNwFEZnnXYP/download/AMY?target=sing-box"  # 订阅地址
+TEMPLATE_URL="https://raw.githubusercontent.com/creval88/rule/refs/heads/main/singbox/config_tproxy.json"  # 配置文件（规则模板)
+TPROXY_PORT=7895  # sing-box tproxy 端口，和配置文件（规则模板）里的端口一致！
+PROXY_FWMARK=1
+PROXY_ROUTE_TABLE=100
+MAX_RETRIES=3  # 最大重试次数
+RETRY_DELAY=3  # 重试间隔时间（秒）
+CONFIG_FILE="/etc/sing-box/config.json"
+CONFIG_BACKUP="/etc/sing-box/config.json.backup"
+
+# 默认日志文件路径
+LOG_FILE="${LOG_FILE:-/var/log/sing-box-config.log}"
+
+# 重定向输出到日志文件
+exec > >(tee -a "$LOG_FILE") 2>&1
+
+# 获取当前时间
+timestamp() {
+    date +"%Y-%m-%d %H:%M:%S"
 }
+
+# 错误处理函数
+error_exit() {
+    echo "$(timestamp) 错误: $1" >&2
+    exit "${2:-1}"
+}
+
+# 捕获中断信号以进行清理
+trap 'error_exit "脚本被中断"' INT TERM
+
+# 检查命令是否存在
+check_command() {
+    local cmd=$1
+    if ! command -v "$cmd" >/dev/null 2>&1; then
+        error_exit "$cmd 未安装，请安装后再运行此脚本"
+    fi
+}
+
+# 停止 sing-box 服务
+if killall sing-box 2>/dev/null; then
+    echo "$(timestamp) 已停止现有 sing-box 服务"
+else
+    echo "$(timestamp) 没有运行中的 sing-box 服务"
+fi
+# 检查并删除已存在的 sing-box 表（如果存在）
+if nft list tables | grep -q 'inet sing-box'; then
+    nft delete table inet sing-box
+fi
+
+# 检查网络连接
+check_network() {
+    local ping_count=3
+    local test_host="8.8.8.8"
+    
+    echo "$(timestamp) 检查网络连接..."
+    if ! ping -c $ping_count $test_host >/dev/null 2>&1; then
+        error_exit "网络连接失败，请检查网络设置"
+    fi
+}
+
+# 检查端口占用
+check_port() {
+    local port=$1
+    if netstat -tuln | grep -q ":$port "; then
+        error_exit "端口 $port 已被占用"
+    fi
+}
+
+# 下载配置文件
+download_config() {
+    local retry=0
+    local url="$1"
+    local output_file="$2"
+    
+    while [ $retry -lt $MAX_RETRIES ]; do
+        if curl -L --connect-timeout 10 --max-time 30 -v "$url" -o "$output_file"; then
+            echo "$(timestamp) 配置文件下载成功"
+            return 0
+        fi
+        retry=$((retry + 1))
+        echo "$(timestamp) 下载失败，第 $retry 次重试..."
+        sleep $RETRY_DELAY
+    done
+    return 1
+}
+
+# 备份配置文件
+backup_config() {
+    local config_file="$1"
+    local backup_file="$2"
+    
+    if [ -f "$config_file" ]; then
+        cp "$config_file" "$backup_file"
+        echo "$(timestamp) 已备份当前配置"
+    fi
+}
+
+# 还原配置文件
+restore_config() {
+    local backup_file="$1"
+    local config_file="$2"
+    
+    if [ -f "$backup_file" ]; then
+        cp "$backup_file" "$config_file"
+        echo "$(timestamp) 已还原至备份配置"
+    fi
+}
+
+
+
+# 检查是否以 root 权限运行
+if [ "$(id -u)" != "0" ]; then
+    error_exit "此脚本需要 root 权限运行"
+fi
+
+# 检查必要命令是否安装
+check_command "sing-box"
+check_command "curl"
+check_command "nft"
+check_command "ip"
+check_command "ping"
+check_command "netstat"
+
+# 检查网络和端口
+check_network
+check_port "$TPROXY_PORT"
+
+
+# 创建配置目录
+mkdir -p /etc/sing-box
+
+# 备份当前配置
+backup_config "$CONFIG_FILE" "$CONFIG_BACKUP"
+
+# 下载新配置
+echo "$(timestamp) 开始下载配置文件..."
+FULL_URL="${BACKEND_URL}/config/${SUBSCRIPTION_URL}&file=${TEMPLATE_URL}"
+
+if ! download_config "$FULL_URL" "$CONFIG_FILE"; then
+    error_exit "配置文件下载失败，已重试 $MAX_RETRIES 次"
+fi
+
+# 验证配置
+if ! sing-box check -c "$CONFIG_FILE"; then
+    echo "$(timestamp) 配置文件验证失败，正在还原备份"
+    restore_config "$CONFIG_BACKUP" "$CONFIG_FILE"
+    error_exit "配置验证失败"
+fi
+
+
+# 创建防火墙规则文件
+echo "$(timestamp) 创建防火墙规则文件..."
+cat > /etc/nftables.d/99-singbox.nft << EOF
+#!/usr/sbin/nft -f
+
+add table inet sing-box
+
+# 创建新的链
+add chain inet sing-box prerouting { type filter hook prerouting priority mangle; policy accept; }
+add chain inet sing-box output { type route hook output priority mangle; policy accept; }
+
+# 添加规则
+table inet sing-box {
+    chain prerouting {
+        # 确保 DHCP 数据包不被拦截（UDP 67/68）
+        udp dport { 67, 68 } accept comment "Allow DHCP traffic"
+
+        # 确保 DNS 和 TProxy 工作
+        meta l4proto { tcp, udp } th dport 53 tproxy to :$TPROXY_PORT accept comment "DNS透明代理"
+        fib daddr type local meta l4proto { tcp, udp } th dport $TPROXY_PORT reject
+        fib daddr type local accept
+
+        # 放行局域网流量
+        ip daddr { 127.0.0.0/8, 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 169.254.0.0/16 } accept
+
+        # 将其他流量标记并转发到 TProxy
+        meta l4proto { tcp, udp } tproxy to :$TPROXY_PORT meta mark set $PROXY_FWMARK accept
+    }
+
+    chain output {
+        # 放行标记过的流量
+        meta mark $PROXY_FWMARK accept
+
+        # 确保 DNS 查询正常
+        meta l4proto { tcp, udp } th dport 53 meta mark set $PROXY_FWMARK accept
+
+        # 放行本地流量
+        ip daddr { 127.0.0.0/8, 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 169.254.0.0/16 } accept
+
+        # 标记其余流量
+        meta l4proto { tcp, udp } meta mark set $PROXY_FWMARK accept
+    }
+}
+EOF
+
+# 设置权限
+chmod 644 /etc/nftables.d/99-singbox.nft
+
+# 应用防火墙规则
+if ! nft -f /etc/nftables.d/99-singbox.nft; then
+    error_exit "应用防火墙规则失败"
+fi
+
+
+# 配置路由规则
+ip rule del table $PROXY_ROUTE_TABLE >/dev/null 2>&1  # 删除已存在的规则
+ip rule add fwmark $PROXY_FWMARK table $PROXY_ROUTE_TABLE
+
+# 清理并添加路由
+ip route flush table $PROXY_ROUTE_TABLE >/dev/null 2>&1
+ip route add local default dev lo table $PROXY_ROUTE_TABLE
+
+# 清理缓存
+if [ -f "/etc/sing-box/cache.db" ]; then
+    rm -f /etc/sing-box/cache.db
+fi
+
+# 启动服务并将输出重定向到 /dev/null
+echo "$(timestamp) 启动 sing-box 服务..."
+sing-box run -c "$CONFIG_FILE" >/dev/null 2>&1 &
+
+# 检查服务状态
+sleep 2
+if pgrep -x "sing-box" > /dev/null; then
+    echo "$(timestamp) sing-box 启动成功  运行模式--TProxy"
+else
+    error_exit "sing-box 启动失败，请检查日志"
+fi
