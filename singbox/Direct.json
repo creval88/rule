@@ -1,21 +1,28 @@
 {
-  "version": 1,
+  "version": 3,
   "rules": [
     {
       "domain": [
+        "appstorrent.ru",
         "mail.zholah.com"
       ]
     },
     {
       "domain_suffix": [
-        "aibc.love",
-        "aibc.store",
-        "aidm.icu",
-        "aicc.icu",
-        "todesk.com",
-        "appstorrent.ru",
-        "lingxing.com"
+        ".aizsh.com",
+        ".aibc.love",
+        ".aibc.store",
+        ".aidm.icu",
+        ".aicc.icu",
+        ".todesk.com",
+        ".lingxing.com"
       ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [],
+      "invert": false
     }
   ]
 }
