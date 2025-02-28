@@ -1,5 +1,7 @@
 # 直连补充列表(国内域名不解析时，防止走代理使用)
 
+DOMAIN-SUFFIX,ziniao.com
+DOMAIN-SUFFIX,aizsh.com
 DOMAIN-SUFFIX,aicc.icu
 DOMAIN-SUFFIX,aibc.love
 DOMAIN-SUFFIX,aibc.store
@@ -10,5 +12,4 @@ DOMAIN-SUFFIX,amzto.shop
 DOMAIN-SUFFIX,mail.zholah.com
 #DOMAIN-SUFFIX,appstorrent.ru
 DOMAIN-SUFFIX,xn--ngstr-lra8j.com
-DOMAIN-SUFFIX,qfbwcd.xyz
 DOMAIN-SUFFIX,services.googleapis.cn
