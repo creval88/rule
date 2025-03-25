@@ -1,17 +1,3 @@
-# 直连补充列表(国内域名不解析时，防止走代理使用)
-
-#DOMAIN-SUFFIX,ziniao.com
-#DOMAIN-SUFFIX,aizsh.com
-#DOMAIN-SUFFIX,aicc.icu
-#DOMAIN-SUFFIX,aibc.love
-#DOMAIN-SUFFIX,aibc.store
-#DOMAIN-SUFFIX,lingxing.com
-#DOMAIN-SUFFIX,todesk.com
-#DOMAIN-SUFFIX,aidm.icu
-#DOMAIN-SUFFIX,amzto.shop
-#DOMAIN-SUFFIX,mail.zholah.com
-#DOMAIN-SUFFIX,appstorrent.ru
-
 +.aibc.love
 +.aizsh.com
 +.ziniao.com
