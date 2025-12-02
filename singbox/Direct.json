@@ -3,19 +3,20 @@
   "rules": [
     {
       "domain": [
-        "appstorrent.ru",
-        "mail.zholah.com"
+        "aizsh.com",
+        "zbc.ink"
       ]
     },
     {
       "domain_suffix": [
         ".aizsh.com",
-        ".aibc.love",
+        ".zbc.ink",
         ".aibc.store",
-        ".aidm.icu",
-        ".aicc.icu",
+        ".zholah.com",
         ".todesk.com",
-        ".lingxing.com"
+        ".lingxing.com",
+        ".ziniao.com",
+        ".ziniaocloud.com"
       ]
     }
   ]
